@@ -15,6 +15,7 @@ import 'package:injectable/injectable.dart' as _i526;
 import 'package:oauth2_auth_app/locator/locator.dart' as _i145;
 import 'package:oauth2_auth_app/modules/auth/datasources/otp_service.dart'
     as _i61;
+import 'package:oauth2_auth_app/rest-client/rest_client.dart' as _i895;
 import 'package:oauth2_auth_app/usecases/send_otp_usecase.dart' as _i867;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -25,6 +26,7 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final locator = _$Locator();
+    gh.lazySingleton<_i895.RestClient>(() => _i895.RestClient());
     gh.lazySingleton<_i361.Dio>(() => locator.getDio());
     gh.lazySingleton<_i61.OTPService>(() => _i61.OTPService(gh<_i361.Dio>()));
     gh.lazySingleton<_i867.SendOtpUseCase>(

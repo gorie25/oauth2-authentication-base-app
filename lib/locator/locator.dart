@@ -5,6 +5,7 @@ import 'package:oauth2_auth_app/modules/auth/datasources/otp_service.dart';
 import 'package:oauth2_auth_app/rest-client/rest_client.dart';
 import 'package:oauth2_auth_app/locator/locator.config.dart';
 import 'package:oauth2_auth_app/usecases/send_otp_usecase.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final locator = GetIt.instance;
 
@@ -20,4 +21,8 @@ abstract class Locator {
 
   @lazySingleton
   SendOtpUseCase sendOtpUseCase(OTPService otpService) => SendOtpUseCase(otpService);
+
+  @lazySingleton
+  @preResolve
+  Future<SharedPreferences> getSharedPreferences() async => SharedPreferences.getInstance();
 }

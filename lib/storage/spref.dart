@@ -6,7 +6,7 @@ class SPref {
 
   SPref._internal();
 
-   Future<String?> getAccessToken() async {
+  Future<String?> getAccessToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(SPrefKey.keyAccessToken);
   }
@@ -16,4 +16,13 @@ class SPref {
     await prefs.setString(SPrefKey.keyAccessToken, token);
   }
 
+  Future<String?> getPassword() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(SPrefKey.keySavePassword);
+  }
+
+  Future setPassword(String password) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(SPrefKey.keySavePassword, password);
+  }
 }

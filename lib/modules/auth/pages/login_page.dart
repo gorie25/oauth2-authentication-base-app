@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:oauth2_auth_app/local_auth_biometric/local_auth.dart';
 import 'package:oauth2_auth_app/locator/locator.dart';
 import 'package:oauth2_auth_app/usecases/send_otp_usecase.dart';
+import 'package:local_auth/local_auth.dart';
+import 'package:oauth2_auth_app/storage/spref.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -77,7 +80,9 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    SPref.instance.setPassword(_passwordController.text);
+                  },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     backgroundColor: Colors.deepPurple,
@@ -99,33 +104,24 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 30),
 
               // Social Login Icons
-              Column(
-                children: [
-                  GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      decoration: BoxDecoration(border: Border.all(color: Colors.grey[300]!), borderRadius: BorderRadius.circular(12)),
-                      child: Image.network(
-                        'https://www.google.com/favicon.ico',
-                        width: 60,
-                        height: 60,
-                        fit: BoxFit.contain,
-                        errorBuilder: (context, error, stackTrace) {
-                          return const Icon(Icons.error, size: 60, color: Colors.red); // fallback khi load fail
-                        },
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      decoration: BoxDecoration(border: Border.all(color: Colors.grey[300]!), borderRadius: BorderRadius.circular(12)),
-                      child: const Icon(Icons.facebook, size: 60, color: Color(0xFF1877F2)),
-                    ),
-                  ),
-                ],
+              GestureDetector(
+                onTap: () async {
+                  final localAuth = LocalAuthService();
+                  await localAuth.canCheckBio();
+                  final authenticated = await localAuth.authenticate();
+                  if (authenticated) {
+                    final savedPassword = await SPref.instance.getPassword();
+                    setState(() {
+                      _passwordController.text = savedPassword ?? '';
+                    });
+                  }
+                },
+                child: Container(
+                  decoration: BoxDecoration(border: Border.all(color: Colors.grey[300]!), borderRadius: BorderRadius.circular(12)),
+                  child: Image.asset('assets/face_id.png', width: 60, height: 60, fit: BoxFit.contain),
+                ),
               ),
+              const SizedBox(height: 20),
             ],
           ),
         ),
