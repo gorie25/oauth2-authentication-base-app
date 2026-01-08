@@ -37,6 +37,10 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
+
+  dependencies {
+    implementation("androidx.biometric:biometric:1.2.0-alpha04")
+    }
 }
 
 flutter {
