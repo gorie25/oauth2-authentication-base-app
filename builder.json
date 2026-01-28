@@ -12,5 +12,9 @@
     "version": "3.29.3"
   },
   "reactNative": {},
-  "mobai": {}
+  
+  "mobai": {
+  "url": "http://LAPTOP-ABC123.local:8686"
+  }
+
 }
