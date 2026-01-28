@@ -1,5 +1,5 @@
 {
-  "project": "\\",
+  "project": "oauth2-authentication-base-app",
   "platform": "ios",
   "github": {
     "owner": "gorie25",
@@ -9,7 +9,7 @@
     "path": "ios"
   },
   "flutter": {
-    "version": "3.35.7"
+    "version": "3.29.3"
   },
   "reactNative": {},
   "mobai": {}
