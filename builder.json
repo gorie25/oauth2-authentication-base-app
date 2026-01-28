@@ -1,0 +1,16 @@
+{
+  "project": "oauth2-authentication-base-app",
+  "platform": "ios",
+  "github": {
+    "owner": "gorie25",
+    "repo": "oauth2-authentication-base-app"
+  },
+  "ios": {
+    "path": "ios"
+  },
+  "flutter": {
+    "version": "3.29.3"
+  },
+  "reactNative": {},
+  "mobai": {}
+}
